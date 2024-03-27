@@ -151,3 +151,13 @@ app.get('/api/students', async (req, res) => {
     res.status(500).json({ message: 'Error fetching students', error: error.message });
   }
 });
+
+// Teachers Routes
+app.get('/api/teachers', async (req, res) => {
+  try {
+    const teachers = await Teacher.find();
+    res.json(teachers);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching teachers', error: error.message });
+  }
+});
