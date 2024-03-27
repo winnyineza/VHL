@@ -1,9 +1,7 @@
-// src/pages/SignIn.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SignIn = () => {
+function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,32 +9,32 @@ const SignIn = () => {
     event.preventDefault();
     try {
       const response = await axios.post('/api/auth/signin', { email, password });
-      // Save the token in localStorage or context for later use
-      localStorage.setItem('token', response.data.token);
       console.log('Sign in successful', response.data);
-      // Redirect to dashboard or other page
     } catch (error) {
-      console.error('Sign in error', error);
-      // Handle error (show message to user, etc.)
+      console.error('Sign in error', error.response.data);
     }
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
         <button type="submit">Sign In</button>
       </form>
     </div>
   );
-};
+}
 
-export default SignIn;
+export default SignInPage;
